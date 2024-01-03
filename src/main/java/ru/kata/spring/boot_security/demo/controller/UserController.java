@@ -9,20 +9,26 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final  UserDetailServiceImpl userDetailService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserDetailServiceImpl userDetailService) {
         this.userService = userService;
+        this.userDetailService = userDetailService;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
+    @GetMapping("/user")
+    public String index(Model model, Principal principal) {
+        model.addAttribute("user", userDetailService.findByUsername(principal.getName()));
+        return "user";
     }
     @GetMapping("/admin")
     public String showAllUsers(Model model) {

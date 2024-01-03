@@ -2,10 +2,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example</title>
+    <style>
+        table {
+            background-color: #fff;
+            color: #333;
+            padding: 10px 15px;
+            width: 100%;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        table thead th {
+            font-weight: bold;
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            background-color: #008080;
+            color: #fff;
+        }
+
+        table tbody td {
+            text-align: left;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background: #f2f2f2;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #fff;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+
+        button {
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<a th:href="@{/logout}">Logout</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>email</th>
+        <th>Username</th>
+    </tr>
+    <tr>
+    <td th:utext = "${user.getName()}"></td>
+    <td th:utext = "${user.getLastName()}"></td>
+    <td th:utext = "${user.getEmail()}"></td>
+    <td th:utext = "${user.getUsername()}"></td>
+    </tr>
+</table>
 </body>
 </html>
