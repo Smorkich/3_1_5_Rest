@@ -50,10 +50,21 @@
             border: none;
             cursor: pointer;
         }
+        .logout-link {
+            position: sticky;
+            top: 10px;
+            float: right;
+            text-decoration: none;
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 1001;
+        }
     </style>
 </head>
 <body>
-<a th:href="@{/logout}">Logout</a>
+<a class="logout-link" th:href="@{/logout}">Logout</a>
 <table>
     <tr>
         <th>Name</th>

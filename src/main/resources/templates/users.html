@@ -51,13 +51,23 @@
             border: none;
             cursor: pointer;
         }
+        .logout-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Users list</h1>
     </header>
-    <a th:href="@{/logout}">Logout</a>
+    <a class="logout-link" th:href="@{/logout}">Logout</a>
     <table>
         <tr>
             <th>User id</th>
