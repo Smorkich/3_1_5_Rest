@@ -68,6 +68,16 @@
                                             <td th:utext = "${user.getName()}"></td>
                                             <td th:utext = "${user.getLastName()}"></td>
                                             <td th:utext = "${user.getEmail()}"></td>
+                                            <td>
+                                                <form th:action="@{/admin/edit(id=${user.getId()})}">
+                                                    <button class="btn btn-info" name='Edit' value='delete'>Delete</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form th:action="@{/admin/delete(id=${user.getId()})}" th:method="delete">
+                                                <button class="btn btn-danger" name='Delete' value='delete'>Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
