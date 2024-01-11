@@ -36,32 +36,21 @@
         <div class="col-2 mt-2 bg-white p-0">
             <ul class="nav nav-pills flex-column pt-2">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">User</a>
+                    <a class="nav-link active" >User</a>
                 </li>
             </ul>
         </div>
         <!-- панель -->
         <div class="col-md-9 offset-md-1 mt-3 ms-5 p-0 ">
-            <h1>Admin panel</h1>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link show active"  data-bs-toggle="tab" href="#description">Users table</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " data-bs-toggle="tab" href="#characteristics">New user</a>
-                </li>
-            </ul>
+            <h1>User information page</h1>
             <!-- контент таба таблица -->
             <div class="tab-content">
                 <div class="tab-pane fade show active"  role="tabpanel" id="description">
                     <div class="row">
                         <div class="col">
-                            <div class="card">
+                            <div class="card mt-2">
                                 <div class="card-header">
-                                    <h4>All users</h4>
+                                    <h4>About user</h4>
                                 </div>
                                 <div class="card-body">
                                     <table class="table">
@@ -72,28 +61,16 @@
                                             <th scope="col">Last name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Role</th>
-                                            <th scope="col">Edit</th>
-                                            <th scope="col">Delete</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="user : ${users}">
-                                            <td th:utext ="${user.getId()}"></td>
-                                            <td th:utext = "${user.getName()}"></td>
-                                            <td th:utext = "${user.getLastName()}"></td>
-                                            <td th:utext = "${user.getEmail()}"></td>
-                                            <td th:utext = "${user.getRoles()}"></td>
-                                            <td>
-                                                <form th:action="@{/admin/edit(id=${user.getId()})}">
-                                                    <button class="btn btn-info" name='Edit' value='delete'>Edit</button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form th:action="@{/admin/delete(id=${user.getId()})}" th:method="delete">
-                                                    <button class="btn btn-danger" name='Delete' value='delete'>Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td th:utext ="${user.getId()}"></td>
+                                                <td th:utext = "${user.getName()}"></td>
+                                                <td th:utext = "${user.getLastName()}"></td>
+                                                <td th:utext = "${user.getEmail()}"></td>
+                                                <td th:utext = "${user.getRoles()}"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

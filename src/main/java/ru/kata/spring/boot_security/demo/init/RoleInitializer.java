@@ -24,19 +24,28 @@ public class RoleInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if(userRepository.count() >= 2) {
+            return;
+        }
         Role userRole = new Role("ROLE_USER");
         Role adminRole = new Role("ROLE_ADMIN");
         roleRepository.save(userRole);
         roleRepository.save(adminRole);
 
         User user = new User();
-        user.setUsername("user");
+        user.setName("first");
+        user.setLastName("user");
+        user.setEmail("user@mail.ru");
+        user.setUsername("user@mail.ru");
         user.setPassword(passwordEncoder.encode("user"));
         user.setRoles(Collections.singletonList(userRole));
         userRepository.save(user);
 
         User admin = new User();
-        admin.setUsername("admin");
+        admin.setName("first");
+        admin.setLastName("admin");
+        admin.setEmail("admin@mail.ru");
+        admin.setUsername("admin@mail.ru");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(Arrays.asList(userRole, adminRole));
         userRepository.save(admin);

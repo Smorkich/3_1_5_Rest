@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
-
 import java.security.Principal;
 
 @Controller
@@ -28,10 +27,11 @@ public class UserController {
     @GetMapping("/user")
     public String index(Model model, Principal principal) {
         model.addAttribute("user", userDetailService.findByUsername(principal.getName()));
-        return "user";
+        return "userPage";
     }
     @GetMapping("/admin")
-    public String showAllUsers(Model model) {
+    public String showAllUsers(Model model, Principal principal) {
+        model.addAttribute("user",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("users", userService.getUsers());
         return "index";
     }
