@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String index(Model model, Principal principal) {
-        model.addAttribute("user", userDetailService.findByUsername(principal.getName()));
+        model.addAttribute("authorized", userDetailService.findByUsername(principal.getName()));
         return "userPage";
     }
     @GetMapping("/admin")

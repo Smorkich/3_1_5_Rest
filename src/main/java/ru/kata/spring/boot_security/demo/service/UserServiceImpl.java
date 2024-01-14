@@ -1,6 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.DaoUser;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -13,10 +16,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final DaoUser daoUser;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(DaoUser daoUser) {
+    public UserServiceImpl(DaoUser daoUser,  @Lazy PasswordEncoder bCryptPasswordEncoder) {
         this.daoUser = daoUser;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -27,7 +32,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void addUser(User user) {
-         daoUser.addUser(user);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        daoUser.addUser(user);
     }
 
     @Transactional

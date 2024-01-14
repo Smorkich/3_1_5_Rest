@@ -12,17 +12,17 @@
     <div class="row bg-dark text-white justify-content-start">
         <div class="col">
             <nav class="navbar bg-dark border-bottom border-body " data-bs-theme="dark" >
-                <div class="container-fluid">
+                <div class="container-fluid ">
                     <div class="col text-start">
-                        <span class="navbar-text" th:utext="${user.getEmail()}">
-                        </span>
+                        <span th:utext="${authorized.getEmail()}"></span>
                         with roles:
-                        <span th:utext="${user.getRoles()}">
-                        </span>
+                        <span class="align-middle"  th:each="role : ${authorized.getRoles()}" th:text="${role.getName()}+' '"></span>
                     </div>
                     <div class="col-sm-2">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a class="logout-link text-secondary" style="text-decoration: none" th:href="@{/logout}">Logout</a>
+                            <form th:action="@{/logout}">
+                                <button class="btn text-secondary" type="submit">logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid bg-body-tertiary">
     <!-- левая навигация(пиллсы) -->
     <div class="row ">
