@@ -51,7 +51,7 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.username = username;
+        this.username = email;
         this.password = password;
         this.roles = roles;
     }
@@ -93,7 +93,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = email;
     }
 
     public String getPassword() {

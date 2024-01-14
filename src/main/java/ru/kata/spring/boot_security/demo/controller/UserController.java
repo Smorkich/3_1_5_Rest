@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
@@ -17,11 +19,13 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
-    private final  UserDetailServiceImpl userDetailService;
+    private final UserDetailServiceImpl userDetailService;
+    private final RoleService roleService;
 
-    public UserController(UserService userService, UserDetailServiceImpl userDetailService) {
+    public UserController(UserService userService, UserDetailServiceImpl userDetailService, RoleService roleService) {
         this.userService = userService;
         this.userDetailService = userDetailService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/user")
@@ -31,15 +35,18 @@ public class UserController {
     }
     @GetMapping("/admin")
     public String showAllUsers(Model model, Principal principal) {
-        model.addAttribute("user",userDetailService.findByUsername(principal.getName()));
+        model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("users", userService.getUsers());
+        model.addAttribute("roles", roleService.getAllRole());
         return "index";
     }
 
     @GetMapping("/admin/add")
-    public String add(Model model) {
+    public String add(Model model, Principal principal ) {
+        model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("user", new User());
-        return "addUserPage";
+        model.addAttribute("roles",roleService.getAllRole());
+        return "addUserBo";
     }
     @PostMapping("/admin/add")
     public String addUser(@ModelAttribute("user") User user) {
