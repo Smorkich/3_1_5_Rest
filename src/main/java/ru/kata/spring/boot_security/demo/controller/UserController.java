@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
@@ -29,12 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String index(Model model, Principal principal) {
-        model.addAttribute("authorized", userDetailService.findByUsername(principal.getName()));
+    public String showUser(Model model, Principal principal) {
+        model.addAttribute("user", userDetailService.findByUsername(principal.getName()));
         return "userPage";
     }
     @GetMapping("/admin")
-    public String showAllUsers(Model model, Principal principal) {
+    public String adminPanel(Model model, Principal principal) {
         model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("users", userService.getUsers());
         model.addAttribute("roles", roleService.getAllRole());
@@ -42,14 +41,14 @@ public class UserController {
     }
 
     @GetMapping("/admin/add")
-    public String add(Model model, Principal principal ) {
+    public String adminAddPanel(Model model, Principal principal ) {
         model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("user", new User());
         model.addAttribute("roles",roleService.getAllRole());
         return "addUserBo";
     }
     @PostMapping("/admin/add")
-    public String addUser(@ModelAttribute("user") User user) {
+    public String adminAddUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/admin";
     }
