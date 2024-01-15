@@ -35,7 +35,7 @@ public class RoleInitializer implements CommandLineRunner {
         User user = new User();
         user.setName("first");
         user.setLastName("user");
-        user.setEmail("user@mail.ru");
+//        user.setEmail("user@mail.ru");
         user.setUsername("user@mail.ru");
         user.setPassword(passwordEncoder.encode("user"));
         user.setRoles(Collections.singletonList(userRole));
@@ -44,7 +44,7 @@ public class RoleInitializer implements CommandLineRunner {
         User admin = new User();
         admin.setName("first");
         admin.setLastName("admin");
-        admin.setEmail("admin@mail.ru");
+//        admin.setEmail("admin@mail.ru");
         admin.setUsername("admin@mail.ru");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(Arrays.asList(userRole, adminRole));

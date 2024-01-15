@@ -14,7 +14,7 @@
             <nav class="navbar bg-dark border-bottom border-body " data-bs-theme="dark" >
                 <div class="container-fluid ">
                     <div class="col text-start">
-                        <span th:utext="${authorized.getEmail()}"></span>
+                        <span th:utext="${authorized.getUsername()}"></span>
                         with roles:
                         <span class="align-middle"  th:each="role : ${authorized.getRoles()}" th:text="${role.getName()}+' '"></span>
                     </div>
@@ -80,7 +80,7 @@
 <!--                                <div class="row justify-content-center">-->
 <!--                                    <div class="col-md-6 pt-3">-->
 <!--                                        <label for="addEmail" class="form-label">Email</label>-->
-<!--                                        <input type="email" th:field="*{email}"   required class="form-control" id="addEmail">-->
+<!--                                        <input type="email" th:field="*{email}"  required class="form-control" id="addEmail">-->
 <!--                                    </div>-->
 <!--                                </div>-->
                                 <div class="row justify-content-center">

@@ -14,7 +14,7 @@
             <nav class="navbar bg-dark border-bottom border-body " data-bs-theme="dark" >
                 <div class="container-fluid ">
                     <div class="col text-start">
-                        <span th:utext="${user.getEmail()}"></span>
+                        <span th:utext="${user.getUsername()}"></span>
                         with roles:
                         <span class="align-middle"  th:each="role : ${user.getRoles()}" th:text="${role.getName()}+' '"></span>
                     </div>

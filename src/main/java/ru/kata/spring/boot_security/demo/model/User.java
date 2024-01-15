@@ -27,8 +27,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
-    private String email;
+//    @Column(name = "email")
+//    private String email;
 
     @Column(name = "username")
     private String username;
@@ -50,8 +50,8 @@ public class User {
     public User(String name, String lastName, String email, String username, String password, Collection<Role> roles) {
         this.name = name;
         this.lastName = lastName;
-        this.email = email;
-        this.username = email;
+//        this.email = email;
+        this.username = username;
         this.password = password;
         this.roles = roles;
     }
@@ -80,20 +80,20 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = email;
+        this.username = username;
     }
 
     public String getPassword() {
@@ -118,7 +118,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
+//                ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
