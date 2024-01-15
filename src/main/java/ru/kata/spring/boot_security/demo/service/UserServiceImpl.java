@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void updateUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         daoUser.updateUser(user);
     }
 

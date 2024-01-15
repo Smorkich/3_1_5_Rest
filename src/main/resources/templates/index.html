@@ -221,7 +221,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form th:method="PATCH" th:action="@{/admin/edit}" th:object="${user}">
+                                                                <form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
                                                                     <div class="row justify-content-center">
                                                                         <div class="col-md-6">
                                                                             <label for="Id" class="form-label">
@@ -236,17 +236,17 @@
                                                                             <label for="FirstName" class="form-label">
                                                                                 <strong>First name</strong>
                                                                             </label>
-                                                                            <input th:name="username" th:type="text" class="form-control" id="FirstName"
-                                                                                   th:value="${user.getName()}">
+                                                                            <input th:name="name" th:type="text" class="form-control" id="FirstName"
+                                                                                   th:value="${user.name}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row justify-content-center">
                                                                         <div class="col-md-6 pt-3">
-                                                                            <label for="lastName" class="form-label">
+                                                                            <label for="LastName" class="form-label">
                                                                                 <strong> Last name</strong>
                                                                             </label>
-                                                                            <input size="8" th:name="lastname" th:type="text" class="form-control" id="lastName"
-                                                                                   th:value="${user.getLastName()}">
+                                                                            <input size="8" th:name="lastName" th:type="text" class="form-control" id="LastName"
+                                                                                   th:value="${user.lastName}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row justify-content-center">
@@ -254,8 +254,8 @@
                                                                             <label for="email" class="form-label">
                                                                                 <strong>Email</strong>
                                                                             </label>
-                                                                            <input th:name="email" th:type="text" class="form-control" id="email"
-                                                                                   th:value="${user.getUsername()}">
+                                                                            <input th:name="username" th:type="email" class="form-control" id="email"
+                                                                                   th:value="${user.username}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row justify-content-center">
@@ -272,8 +272,8 @@
                                                                             <select multiple class="form-control
                                                                                 form-control-sm" name="roles"
                                                                                     id="roles" size="2">
-                                                                                <option th:each="role : ${roles}" th:value="${role.getId()}">
-                                                                                    <th:block th:text="${role.getName()}">
+                                                                                <option th:each="role : ${roles}" th:value="${role.id}">
+                                                                                    <th:block th:text="${role.name}">
                                                                                     </th:block>
                                                                                 </option>
                                                                             </select>
