@@ -95,7 +95,7 @@
                                                     <form>
                                                         <button type="button" class="btn btn-info"
                                                                 data-bs-toggle="modal"
-                                                                th:data-bs-target="${'#editModal'}"
+                                                                th:data-bs-target="${'#editModal' + user.getId()}"
                                                                 name='Edit'>
                                                             Edit
                                                         </button>
@@ -103,10 +103,14 @@
                                                 </td>
                                                 <td>
                                                     <form>
-                                                        <button class="btn btn-danger" type="button">Delete</button>
+                                                        <button class="btn btn-danger" type="button"
+                                                        data-bs-toggle="modal"
+                                                                th:data-bs-target="${'#delete' + user.getId()}">
+                                                            Delete
+                                                        </button>
                                                     </form>
                                                 </td>
-                                                <div class="modal fade" th:id="${'editModal'}" tabindex="-1"
+                                                <div class="modal fade" th:id="${'editModal' + user.getId()}" tabindex="-1"
                                                      aria-labelledby="editModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -119,7 +123,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form>
+                                                                <form >
                                                                     <div class="row justify-content-center">
                                                                         <div class="col-md-6">
                                                                             <label for="Id" class="form-label">
@@ -198,6 +202,98 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="modal fade" th:id="${'delete' + user.getId()}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5"
+                                                                    id="exampleModalLabel">
+                                                                    Delete user
+                                                                </h1>
+                                                                <button type="button"
+                                                                        class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form th:method="Delete"
+                                                                      th:action="@{/admin/delete(id=${user.getId()})}"
+                                                                      th:object="${user}">
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-6">
+                                                                            <label for="id1"
+                                                                                   class="form-label">
+                                                                                <strong>ID</strong>
+                                                                            </label>
+                                                                            <input th:name="id1" th:type="text"
+                                                                                    class="form-control"
+                                                                                   id="id1" th:value="${user.getId()}"
+                                                                                   disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-6 pt-3 ">
+                                                                            <label for="firstName1"
+                                                                                   class="form-label">
+                                                                                <strong>First name</strong>
+                                                                            </label>
+                                                                            <input th:name="firstName1" th:type="text"
+                                                                            class="form-control" id="firstName1"
+                                                                            th:value="${user.getName()}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-6 pt-3">
+                                                                            <label for="lastName1"
+                                                                                   class="form-label">
+                                                                                <strong>Last name</strong>
+                                                                            </label>
+                                                                            <input th:name="lastname1" th:type="text"
+                                                                            class="form-control" id="lastName1"
+                                                                            th:value="${user.getLastName()}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-6 pt-3">
+                                                                            <label for="email1"
+                                                                                   class="form-label">
+                                                                                <strong>Email</strong>
+                                                                            </label>
+                                                                            <input th:name="email1" th:type="text"
+                                                                                   class="form-control" id="email1"
+                                                                                   th:value="${user.email}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-6 pt-3">
+                                                                            <label for="roles1">Role</label>
+                                                                            <select multiple
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="roles1"
+                                                                                    name="roles"
+                                                                                    size="2" disabled>
+                                                                                <option>
+                                                                                    <th:block th:text="${user.getRoles()}">
+                                                                                    </th:block>
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </tr>
                                         </tbody>
                                     </table>
