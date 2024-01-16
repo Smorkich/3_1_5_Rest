@@ -45,7 +45,7 @@ public class UserController {
         model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("user", new User());
         model.addAttribute("roles",roleService.getAllRole());
-        return "addUserBo";
+        return "newUser";
     }
     @PostMapping("/admin/add")
     public String adminAddUser(@ModelAttribute("user") User user) {
