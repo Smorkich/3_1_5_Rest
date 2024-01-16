@@ -52,11 +52,6 @@ public class UserController {
         userService.addUser(user);
         return "redirect:/admin";
     }
-    @GetMapping("/admin/edit/")
-    public String edit(Model model, @RequestParam(value = "id") Long id) {
-        model.addAttribute("user",userService.getUserById(id));
-        return "/editPage";
-    }
     @PatchMapping("/admin/edit/{id}")
     public String update (@ModelAttribute("user") User user) {
         userService.updateUser(user);
