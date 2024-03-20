@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,10 +40,8 @@ public class AdminController {
     }
     @GetMapping("/users")
     public ResponseEntity<List<User>> allUsers(Model model, Principal principal) {
-        model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
-        model.addAttribute("users", userService.getUsers());
-        model.addAttribute("roles", roleService.getAllRole());
-        return "index";
+        List<User> users = userService.getUsers();
+        return  new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/admin/add")
