@@ -1,27 +1,32 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
+import java.util.List;
 
-@Controller
-public class UserController {
+
+@RestController
+@RequestMapping("/admin")
+public class AdminController {
 
     private final UserService userService;
     private final UserDetailServiceImpl userDetailService;
     private final RoleService roleService;
 
-    public UserController(UserService userService, UserDetailServiceImpl userDetailService, RoleService roleService) {
+    public AdminController(UserService userService, UserDetailServiceImpl userDetailService, RoleService roleService) {
         this.userService = userService;
         this.userDetailService = userDetailService;
         this.roleService = roleService;
@@ -32,8 +37,8 @@ public class UserController {
         model.addAttribute("user", userDetailService.findByUsername(principal.getName()));
         return "userPage";
     }
-    @GetMapping("/admin")
-    public String adminPanel(Model model, Principal principal) {
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> allUsers(Model model, Principal principal) {
         model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
         model.addAttribute("users", userService.getUsers());
         model.addAttribute("roles", roleService.getAllRole());
