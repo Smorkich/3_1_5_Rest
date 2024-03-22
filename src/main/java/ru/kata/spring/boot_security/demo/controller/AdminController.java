@@ -41,7 +41,7 @@ public class AdminController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> allUsers(Model model, Principal principal) {
         List<User> users = userService.getUsers();
-        return  new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/admin/add")
