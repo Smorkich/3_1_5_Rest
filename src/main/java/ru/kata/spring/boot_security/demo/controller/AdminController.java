@@ -53,13 +53,6 @@ public class AdminController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @GetMapping("/admin/add")
-//    public String adminAddPanel(Model model, Principal principal ) {
-//        model.addAttribute("authorized",userDetailService.findByUsername(principal.getName()));
-//        model.addAttribute("user", new User());
-//        model.addAttribute("roles",roleService.getAllRole());
-//        return "newUser";
-//    }
     @PostMapping("/newUser")
     public ResponseEntity<ExceptionInfo> adminAddUser(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -74,15 +67,15 @@ public class AdminController {
             throw new UserWithSuchLoginExist("User with such login exist");
         }
     }
-    @PatchMapping("/admin/edit/{id}")
-    public String update (@ModelAttribute("user") User user) {
+    @PatchMapping("/edit")
+    public ResponseEntity<ExceptionInfo> update (@RequestParam("id") User user) {
         userService.updateUser(user);
-        return "redirect:/admin";
+        return new ResponseEntity<>(new ExceptionInfo("Пользователь изменен"), HttpStatus.OK);
     }
-    @DeleteMapping("/admin/delete")
-    public String delete(@RequestParam("id") Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<ExceptionInfo> delete(@RequestParam("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
+        return new ResponseEntity<>(new ExceptionInfo("Пользователь удален"), HttpStatus.OK);
     }
     private String getErrors(BindingResult bindingResult){
         return bindingResult.getFieldErrors()
