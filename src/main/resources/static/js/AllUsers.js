@@ -1,6 +1,7 @@
 $(async function () {
     await allUsers();
     await getDefaultModal();
+    await infoUser();
 })
 
 const table = $('#allUsersTBody');

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
@@ -14,15 +15,15 @@ import java.security.Principal;
 @RestController
 @CrossOrigin
 public class UserController {
-    private final UserService userService;
+    private final UserDetailServiceImpl userDetailService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserDetailServiceImpl userService) {
+        this.userDetailService = userService;
     }
 
     @GetMapping("/")
     public ResponseEntity<User> showUserInfo (Principal principal){
-        User user = null;
+        User user = userDetailService.findByUsername(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
