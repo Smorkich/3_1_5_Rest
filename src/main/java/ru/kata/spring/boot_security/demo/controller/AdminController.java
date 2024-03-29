@@ -4,12 +4,10 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +21,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +40,11 @@ public class AdminController {
         this.userService = userService;
         this.userDetailService = userDetailService;
         this.roleService = roleService;
+    }
+    @GetMapping("/userThis")
+    public ResponseEntity<User> userGet (Principal principal){
+        User user = userDetailService.findByUsername(principal.getName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
@@ -68,7 +72,7 @@ public class AdminController {
         }
     }
     @PatchMapping("/edit")
-    public ResponseEntity<ExceptionInfo> update (@RequestParam("id") User user) {
+    public ResponseEntity<ExceptionInfo> update (@RequestBody User user) {
         userService.updateUser(user);
         return new ResponseEntity<>(new ExceptionInfo("Пользователь изменен"), HttpStatus.OK);
     }

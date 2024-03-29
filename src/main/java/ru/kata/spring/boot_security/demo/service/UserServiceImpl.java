@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.DaoUser;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,11 +17,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final DaoUser daoUser;
+    private final UserRepository userRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(DaoUser daoUser,  @Lazy PasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(DaoUser daoUser, UserRepository userRepository,  @Lazy PasswordEncoder bCryptPasswordEncoder) {
         this.daoUser = daoUser;
+        this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -53,4 +56,9 @@ public class UserServiceImpl implements UserService {
     public User getUserById(long id) {
         return daoUser.getUserById(id);
     }
+
+    //@Override
+//    public User findByUsername(String name) {
+//        return userRepository.findByUsername(name);
+//    }
 }
