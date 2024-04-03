@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 
-@RestController
+@Controller
 @CrossOrigin
 public class UserController {
     private final UserDetailServiceImpl userDetailService;
@@ -22,8 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<User> showUserInfo (Principal principal){
-        User user = userDetailService.findByUsername(principal.getName());
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public String showUserInfo (){
+        return "/index";
     }
 }
