@@ -14,6 +14,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
 
 @Controller
+@RequestMapping
 @CrossOrigin
 public class UserController {
     private final UserDetailServiceImpl userDetailService;

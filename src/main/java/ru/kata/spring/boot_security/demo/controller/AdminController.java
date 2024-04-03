@@ -49,7 +49,7 @@ public class AdminController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<User> showUser(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
     @GetMapping("/users")
     public ResponseEntity<List<User>> allUsers() {
