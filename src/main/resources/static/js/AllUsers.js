@@ -1,13 +1,11 @@
 $(async function () {
-    await getUser();
+    await getUser()
     await getDefaultModal();
     await infoUser();
     await allUsers();
-    await getUserPanel();
-
+    await getUserPanel()
 })
-let isUser = true;
-
+let isUser = true
 const table = $('#allUsersTBody');
 async function allUsers() {
     await fetch("http://localhost:8090/admin/users")
@@ -73,10 +71,25 @@ async function getDefaultModal() {
     })
 }
 
+async function infoUser () {
+    let temp = ''
+    const info = document.querySelector('#info')
+    await fetch("http://localhost:8090/admin/userThis")
+        .then(res => res.json())
+        .then(user => {
+            temp += `
+                <span style='color: #ffffff'>${user.username} with roles : <span> ${user.roles.map(e => '' + e.name)} </span>
+                 </span>
+                `
+        })
+    info.innerHTML = temp
+}
+
 async function getUser (){
     const table = document.querySelector('#tableUser tbody')
     let temp = ''
-    await fetch('http://localhost:8090/admin/userThis').then(res => res.json())
+    await fetch("http://localhost:8090/admin/userThis")
+        .then(res => res.json())
         .then(user => {
             temp = `
                 <tr>
@@ -84,14 +97,15 @@ async function getUser (){
                     <td>${user.name}</td>
                     <td>${user.lastName}</td>
                     <td>${user.username}</td>
-                    <td>${user.roles.map(r => ' ' + r.name).join(', ')}</td>
+                    <td>${user.roles.map(role => role.name
+                .substring(5).concat(" ")).toString().replaceAll(",", "")}</td>
                 </tr>
             `
             table.innerHTML = temp
             $(function () {
                 let role = ""
                 for (let i=0; i < user.roles.length; i++ ){
-                    role = user.roles[i].role
+                    role = user.roles[i].name
                     if(role ==='ADMIN'){
                         isUser = false
                     }
@@ -107,7 +121,6 @@ async function getUser (){
             })
         })
 }
-
 async function getUserPanel () {
     let adminTab = document.getElementById('adminTab');
     let userTab = document.getElementById('userTab');
@@ -115,15 +128,18 @@ async function getUserPanel () {
     let userTable = document.getElementById('userTable');
 
     adminTab.addEventListener('click', function () {
+        $('#adminPanel').show();
         adminTab.classList.add('active');
         userTab.classList.remove('active');
         adminTable.classList.add('active', 'show');
         adminTable.classList.remove('fade');
         userTable.classList.add('fade');
         userTable.classList.remove('active', 'show');
+
     });
 
     userTab.addEventListener('click', function () {
+        $('#adminPanel').hide();
         userTab.classList.add('active');
         adminTab.classList.remove('active');
         userTable.classList.add('active', 'show');
@@ -131,18 +147,4 @@ async function getUserPanel () {
         adminTable.classList.add('fade');
         adminTable.classList.remove('active', 'show');
     });
-}
-
-async function infoUser () {
-    let temp = ''
-    const info = document.querySelector('#info')
-    await fetch("http://localhost:8090/admin/userThis")
-        .then(res => res.json())
-        .then(user => {
-            temp += `
-                <span style='color: #ffffff'>${user.username} with roles : <span> ${user.roles.map(e => '' + e.name)} </span>
-                 </span>
-                `
-        })
-    info.innerHTML = temp
 }
