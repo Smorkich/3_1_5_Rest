@@ -5,7 +5,7 @@ $(async function () {
     await allUsers();
     await getUserPanel()
 })
-let isUser = true
+let isAdmin = false;
 const table = $('#allUsersTBody');
 async function allUsers() {
     await fetch("http://localhost:8090/admin/users")
@@ -85,9 +85,9 @@ async function infoUser () {
     info.innerHTML = temp
 }
 
-async function getUser (){
-    const table = document.querySelector('#tableUser tbody')
-    let temp = ''
+async function getUser() {
+    const table = document.querySelector('#tableUser tbody');
+    let temp = '';
     await fetch("http://localhost:8090/admin/userThis")
         .then(res => res.json())
         .then(user => {
@@ -100,51 +100,38 @@ async function getUser (){
                     <td>${user.roles.map(role => role.name
                 .substring(5).concat(" ")).toString().replaceAll(",", "")}</td>
                 </tr>
-            `
-            table.innerHTML = temp
+            `;
+            table.innerHTML = temp;
             $(function () {
-                let role = ""
-                for (let i=0; i < user.roles.length; i++ ){
-                    role = user.roles[i].name
-                    if(role ==='ADMIN'){
-                        isUser = false
-                    }
+                isAdmin = user.roles.some(role => role.name === 'ROLE_ADMIN');
+                if (isAdmin) {
+                    $('#adminTab').addClass('active');
+                    $('#adminTable').addClass('active show');
+                    $('#userTab').removeClass('active');
+                    $('#userTable').removeClass('active show');
+                } else {
+                    $('#userTab').addClass('active');
+                    $('#userTable').addClass('active show');
+                    $('#adminTab').removeClass('active');
+                    $('#adminTable').removeClass('active show');
                 }
-                if(isUser){
-                    $('#userTable').addClass('show active')
-                    $('#userTab').addClass('show active')
-                }else {
-                    $('#adminTable').addClass('show active')
-                    $('#adminTab').addClass('show active')
-                    $('#tableMable').addClass('show active')
-                }
-            })
-        })
+            });
+        });
 }
-async function getUserPanel () {
-    let adminTab = document.getElementById('adminTab');
-    let userTab = document.getElementById('userTab');
-    let adminTable = document.getElementById('adminTable');
-    let userTable = document.getElementById('userTable');
-
-    adminTab.addEventListener('click', function () {
+async function getUserPanel() {
+    $('#adminTab').click(function () {
         $('#adminPanel').show();
-        adminTab.classList.add('active');
-        userTab.classList.remove('active');
-        adminTable.classList.add('active', 'show');
-        adminTable.classList.remove('fade');
-        userTable.classList.add('fade');
-        userTable.classList.remove('active', 'show');
-
+        $('#adminTable').addClass('active show').removeClass('fade');
+        $('#userTable').removeClass('active show').addClass('fade');
+        $('#userTab').removeClass('active')
+        $('#adminTab').addClass('active')
     });
 
-    userTab.addEventListener('click', function () {
+    $('#userTab').click(function () {
         $('#adminPanel').hide();
-        userTab.classList.add('active');
-        adminTab.classList.remove('active');
-        userTable.classList.add('active', 'show');
-        userTable.classList.remove('fade');
-        adminTable.classList.add('fade');
-        adminTable.classList.remove('active', 'show');
+        $('#userTable').addClass('active show').removeClass('fade');
+        $('#adminTable').removeClass('active show').addClass('fade');
+        $('#userTab').addClass('active')
+        $('#adminTab').removeClass('active')
     });
 }
