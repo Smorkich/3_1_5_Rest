@@ -17,5 +17,4 @@ public interface UserService {
 
     User getUserById(long id);
 
-    //User findByUsername(String name);
 }

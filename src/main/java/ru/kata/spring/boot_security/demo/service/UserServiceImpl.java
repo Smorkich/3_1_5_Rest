@@ -17,13 +17,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final DaoUser daoUser;
-    private final UserRepository userRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(DaoUser daoUser, UserRepository userRepository,  @Lazy PasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(DaoUser daoUser,  @Lazy PasswordEncoder bCryptPasswordEncoder) {
         this.daoUser = daoUser;
-        this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -57,8 +55,4 @@ public class UserServiceImpl implements UserService {
         return daoUser.getUserById(id);
     }
 
-    //@Override
-//    public User findByUsername(String name) {
-//        return userRepository.findByUsername(name);
-//    }
 }

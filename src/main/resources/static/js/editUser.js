@@ -4,9 +4,9 @@ async function editUser(modal, id) {
     let user = await userResponse.json()
     modal.find('modal-title').html('Edit user')
     let editButton = `<button class="btn btn-primary" id="editButton">Edit</button>`
-    //let closeButton = `<button type="button" class="btn btn-success" id="closeButton" data-dismiss="modal"> Close</button>`
+    let closeButton = `<button type="button" class="btn btn-secondary" id="closeButton" data-bs-dismiss="modal"> Close</button>`
     modal.find('.modal-footer').append(editButton)
-    //modal.find('.modal-footer').append(closeButton);
+    modal.find('.modal-footer').append(closeButton);
 
     let bodyForm = `
                     <div class="modal-body">
@@ -107,7 +107,7 @@ async function editUser(modal, id) {
         })
 
         if (response.ok) {
-            //AllUsers()
+            await allUsers()
             modal.modal('hide')
         } else {
             let body = await response.json();

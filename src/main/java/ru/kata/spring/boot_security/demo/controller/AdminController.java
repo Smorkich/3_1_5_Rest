@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.exceptionInfo.ExceptionInfo;
 import ru.kata.spring.boot_security.demo.exceptionInfo.UserWithSuchLoginExist;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -29,17 +27,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin
 public class AdminController {
 
     private final UserService userService;
     private final UserDetailServiceImpl userDetailService;
-    private final RoleService roleService;
 
-    public AdminController(UserService userService, UserDetailServiceImpl userDetailService, RoleService roleService) {
+    public AdminController(UserService userService, UserDetailServiceImpl userDetailService) {
         this.userService = userService;
         this.userDetailService = userDetailService;
-        this.roleService = roleService;
     }
     @GetMapping("/userThis")
     public ResponseEntity<User> userGet (Principal principal){

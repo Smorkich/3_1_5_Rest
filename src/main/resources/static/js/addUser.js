@@ -12,9 +12,7 @@ async function newUser() {
     form.addEventListener('submit', addNewUser)
 
     function addNewUser(e) {
-        console.log('попал в функцию ')
         e.preventDefault();
-        console.log('Перед чек ролес')
         let checkedRoles = () => {
             let array = []
             let options = document.querySelector('#addRoles').options
@@ -41,6 +39,7 @@ async function newUser() {
         }).then(() => {
             form.reset();
             allUsers();
+            $('#tableMable').tab('show');
             $('#adminTable').click();
         })
     }

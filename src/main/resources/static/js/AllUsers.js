@@ -7,7 +7,9 @@ $(async function () {
 })
 let isAdmin = false;
 const table = $('#allUsersTBody');
+
 async function allUsers() {
+    table.empty();
     await fetch("http://localhost:8090/admin/users")
         .then(res => res.json())
         .then(data => {
@@ -60,7 +62,7 @@ async function getDefaultModal() {
                 editUser(target, userId);
                 break;
             case 'delete' :
-                deleteUser(target,userId);
+                deleteUser(target, userId);
                 break;
         }
     }).on('hidden.bs.modal', (e) => {
@@ -71,14 +73,15 @@ async function getDefaultModal() {
     })
 }
 
-async function infoUser () {
+async function infoUser() {
     let temp = ''
     const info = document.querySelector('#info')
     await fetch("http://localhost:8090/admin/userThis")
         .then(res => res.json())
         .then(user => {
             temp += `
-                <span style='color: #ffffff'>${user.username} with roles : <span> ${user.roles.map(e => '' + e.name)} </span>
+                <span style='color: #ffffff'>${user.username} with roles : <span> ${user.roles.map(role => role.name
+                .substring(5).concat(" ")).toString().replaceAll(",", "")} </span>
                  </span>
                 `
         })
@@ -118,6 +121,7 @@ async function getUser() {
             });
         });
 }
+
 async function getUserPanel() {
     $('#adminTab').click(function () {
         $('#adminPanel').show();

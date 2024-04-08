@@ -1,12 +1,11 @@
 async function deleteUser(modal, id) {
-    console.log("Попал в делит" + " id user = " + id)
     let userResponse = await fetch(`http://localhost:8090/admin/user/${id}`)
     let user = await userResponse.json()
     modal.find('modal-title').html('Delete user')
     let deleteButton = `<button class="btn btn-danger" id="deleteButton">Delete</button>`
-    // let closeButton = `<button type="button" class="btn btn-success" id="closeButton" data-dismiss="modal"> Close</button>`
+    let closeButton = `<button type="button" class="btn btn-secondary" id="closeButton" data-bs-dismiss="modal"> Close</button>`
     modal.find('.modal-footer').append(deleteButton)
-    // modal.find('.modal-footer').append(closeButton)
+    modal.find('.modal-footer').append(closeButton)
 
     let roles = user.roles;
     let rolesHtml = "";
@@ -88,9 +87,9 @@ async function deleteUser(modal, id) {
             'Content-Type': 'application/json',
             'Referer': null
         }
-        const response = await fetch(`http://localhost:8090/admin/delete?id=${id}`, { method: 'DELETE', headers: head })
+        const response = await fetch(`http://localhost:8090/admin/delete?id=${id}`, {method: 'DELETE', headers: head})
         if (response.ok) {
-            //await allUsers();
+            await allUsers();
             modal.modal('hide');
         } else {
             let body = await response.json();
