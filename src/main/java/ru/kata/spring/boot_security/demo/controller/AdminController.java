@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.exceptionInfo.ExceptionInfo;
 import ru.kata.spring.boot_security.demo.exceptionInfo.UserWithSuchLoginExist;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserDetailServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
@@ -30,15 +29,15 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     private final UserService userService;
-    private final UserDetailServiceImpl userDetailService;
+//    private final UserDetailServiceImpl userDetailService;
 
-    public AdminController(UserService userService, UserDetailServiceImpl userDetailService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
-        this.userDetailService = userDetailService;
+        //this.userDetailService = userDetailService;
     }
     @GetMapping("/userThis")
     public ResponseEntity<User> userGet (Principal principal){
-        User user = userDetailService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -59,7 +58,7 @@ public class AdminController {
             return new ResponseEntity<>(new ExceptionInfo(err), HttpStatus.BAD_REQUEST);
         }
         try{
-            userService.addUser(user);
+            userService.save(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (DataIntegrityViolationException ex) {
@@ -67,9 +66,10 @@ public class AdminController {
         }
     }
     @PatchMapping("/edit")
-    public ResponseEntity<ExceptionInfo> update (@RequestBody User user) {
-        userService.updateUser(user);
-        return new ResponseEntity<>(new ExceptionInfo("Пользователь изменен"), HttpStatus.OK);
+    public ResponseEntity<ExceptionInfo> updateUser (@RequestParam("id") Long id, @RequestBody User user) {
+            user.setId(id);
+            userService.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
     }
     @DeleteMapping("/delete")
     public ResponseEntity<ExceptionInfo> delete(@RequestParam("id") Long id) {
