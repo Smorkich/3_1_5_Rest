@@ -47,13 +47,6 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-//    @Transactional
-//    @Override
-//    public void updateUser(User user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        userRepository.(user);
-//    }
-
     @Override
     public User getUserById(long id) {
         Optional<User> optional = userRepository.findById(id);

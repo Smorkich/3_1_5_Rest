@@ -18,7 +18,6 @@ import ru.kata.spring.boot_security.demo.exceptionInfo.ExceptionInfo;
 import ru.kata.spring.boot_security.demo.exceptionInfo.UserWithSuchLoginExist;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,11 +28,9 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     private final UserService userService;
-//    private final UserDetailServiceImpl userDetailService;
 
     public AdminController(UserService userService) {
         this.userService = userService;
-        //this.userDetailService = userDetailService;
     }
     @GetMapping("/userThis")
     public ResponseEntity<User> userGet (Principal principal){
